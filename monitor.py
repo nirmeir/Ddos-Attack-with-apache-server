@@ -1,11 +1,28 @@
 # Project made by: Dana Zorohov 207817529, Nir Meir 313229106
+
+"""
+----DDOS Project----
+This script is monitoring the target.
+It sending ping packets to the target and calculates the time of responding.
+"""
+
+# IMPORTS
 from scapy.layers.inet import IP, ICMP
 from scapy.all import *
 
+# The time records file
 f = open("pings_results_p.txt", "a")
-counter=0;
+
+# Counter for each icmp packet
+counter = 0
+
+# True-server is alive
 flag = True
-start_prog=time.time()
+
+# Start time of the monitoring
+start_prog = time.time()
+
+# While True - while the server is alive
 while flag:
     start = time.time()
     counter+=1
