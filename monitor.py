@@ -1,5 +1,4 @@
-import sys
-
+# Project made by: Dana Zorohov 207817529, Nir Meir 313229106
 from scapy.layers.inet import IP, ICMP
 from scapy.all import *
 
