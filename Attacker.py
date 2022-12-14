@@ -24,10 +24,6 @@ counter = 0
 # 100 iterations loop, each loop sending 10K syn packets, total - 1M packets
 for i in range(0, 100):
 
-    # Writing to "syns_results_p.txt" the number of the iteration
-    f.write("Loop number" + " " + str(i))
-    f.write("\n")
-
     # Sending syn packet 10K times
     for j in range(0, 10000):
         # syn packet's counter
@@ -68,7 +64,6 @@ for i in range(0, 100):
         f.write("Index of syn request" + " " + str(counter))
         f.write("\n")
         f.write("Time to take" + " " + str(total) + "  " + "Sec")
-        f.write("\n")
         f.write("\n")
 
 print("DDos attack is done")
