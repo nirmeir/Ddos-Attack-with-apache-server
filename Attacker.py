@@ -65,7 +65,7 @@ for i in range(0, 100):
         total = end - start
         print('Execution time:', total, 'seconds')
 
-        f.write("Index of syn request" + " " + str(j))
+        f.write("Index of syn request" + " " + str(counter))
         f.write("\n")
         f.write("Time to take" + " " + str(total) + "  " + "Sec")
         f.write("\n")
