@@ -9,6 +9,7 @@ It sending ping packets to the target and calculates the time of responding.
 # IMPORTS
 from scapy.all import *
 import socket
+import time
 
 
 # The time records file
@@ -24,27 +25,27 @@ host = '192.168.248.138'
 port = 80
 
 # Start time of the monitoring
-start_prog = time.time()
+total_time_prog = 0
+
+
 
 # While True - while the server is alive
 while flag:
 
-    # start time of sending this specific packet
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(5)
+     # start time of sending this specific packet
     start = time.time()
     # packet's counter
     counter += 1
     print("pinging the target....")
 
     # creating socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.settimeout(5)
-
     # sending ping to the host
     try:
         # trying to connect to the host with specific port
         # if succeeded - host is up
         sock.connect((host, port))
-
         # end time of sending this specific packet
         end = time.time()
         print("This host is up")
@@ -55,16 +56,15 @@ while flag:
         f.write("\n")
         f.write("ttl" + " " + str(total_time) + "  " + "Sec")
         f.write("\n")
+        total_time_prog += total_time
+        time.sleep(5)
+
+
     except:
         # host is down
         flag = False
-
-        # End time of the connection
-        end_prog = time.time()
-        # total time of the connection
-        total_prog = end_prog - start_prog
         # average time of the connection
-        avg = total_prog / counter
+        avg = total_time_prog / counter
         print("This host is down")
         f.write("\n")
         f.write("The server is shutdown")
@@ -72,8 +72,17 @@ while flag:
         f.write("The average time is" + " " + str(avg) + "  " + "Sec")
         f.write("\n")
         f.close()
-    else:
         sock.close()
+
+        if(counter==300):
+            flag = False
+            # average time of the connection
+            avg = total_time_prog / counter
+            f.write("\n")
+            f.write("The average time is" + " " + str(avg) + "  " + "Sec")
+            f.write("\n")
+            f.close()
+            sock.close()
 
 
 
